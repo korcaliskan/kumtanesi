@@ -1,6 +1,6 @@
 import os
 import logging
-from typing import List, Dict
+from typing import List, Dict, Optional, Any
 from openai import OpenAI
 
 class KumTanesiAgent:
@@ -24,16 +24,18 @@ class KumTanesiAgent:
         
         Adın KumTanesi ve bir AI asistanı olduğunu unutma."""
         
-    def get_response(self, user_message: str, conversation_history: List[Dict] = None) -> str:
+    def get_response(self, user_message: str, conversation_history: Optional[List[Dict[str, Any]]] = None) -> str:
         """Kullanıcı mesajına AI yanıtı üret"""
         try:
             # Konuşma bağlamını hazırla
-            messages = [{"role": "system", "content": self.system_prompt}]
+            messages: List[Dict[str, str]] = [{"role": "system", "content": self.system_prompt}]
             
             # Konuşma geçmişini ekle (son 8 mesaj)
             if conversation_history:
                 recent_history = conversation_history[-8:] if len(conversation_history) > 8 else conversation_history
-                messages.extend(recent_history)
+                for msg in recent_history:
+                    if "role" in msg and "content" in msg:
+                        messages.append({"role": str(msg["role"]), "content": str(msg["content"])})
             
             # Mevcut kullanıcı mesajını ekle
             messages.append({"role": "user", "content": user_message})
@@ -48,7 +50,7 @@ class KumTanesiAgent:
                 frequency_penalty=0.1
             )
             
-            return response.choices[0].message.content
+            return response.choices[0].message.content or "Üzgünüm, yanıt oluşturamadım."
             
         except Exception as e:
             logging.error(f"Agent response error: {str(e)}")

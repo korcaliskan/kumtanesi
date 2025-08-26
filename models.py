@@ -1,5 +1,5 @@
-from dataclasses import dataclass
-from typing import List, Dict, Any
+from dataclasses import dataclass, field
+from typing import List, Dict, Any, Optional
 from datetime import datetime
 
 @dataclass
@@ -7,7 +7,7 @@ class ChatMessage:
     """Chat mesajı modeli"""
     role: str  # 'user' veya 'assistant'
     content: str
-    timestamp: datetime = None
+    timestamp: Optional[datetime] = field(default=None)
     
     def __post_init__(self):
         if self.timestamp is None:
@@ -25,7 +25,7 @@ class ConversationSession:
     """Konuşma oturumu modeli"""
     session_id: str
     messages: List[ChatMessage]
-    created_at: datetime = None
+    created_at: Optional[datetime] = field(default=None)
     
     def __post_init__(self):
         if self.created_at is None:

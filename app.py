@@ -31,7 +31,7 @@ def index():
 def chat():
     """Kullanıcı mesajını işle ve agent yanıtı döndür"""
     try:
-        user_message = request.json.get('message', '').strip()
+        user_message = request.json.get('message', '').strip() if request.json else ''
         
         if not user_message:
             return jsonify({
