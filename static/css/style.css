@@ -1,0 +1,182 @@
+/* KumTanesi Custom Styles */
+
+/* Chat Messages Styling */
+.chat-messages {
+    height: 400px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.message {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+}
+
+.message.user {
+    margin-left: 2rem;
+    background-color: var(--bs-primary);
+    color: var(--bs-white);
+    border-radius: 1rem 1rem 0.25rem 1rem;
+}
+
+.message.assistant {
+    margin-right: 2rem;
+    background-color: var(--bs-secondary);
+    border-radius: 1rem 1rem 1rem 0.25rem;
+}
+
+.message-content {
+    word-wrap: break-word;
+    line-height: 1.5;
+}
+
+.message-time {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-top: 0.25rem;
+}
+
+/* Welcome Message */
+.welcome-message {
+    color: var(--bs-text-muted);
+}
+
+/* Chat Input Container */
+.chat-input-container {
+    background-color: var(--bs-dark);
+}
+
+/* Custom Scrollbar for Chat */
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: var(--bs-dark);
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: var(--bs-secondary);
+    border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-light);
+}
+
+/* Message Animation */
+.message {
+    opacity: 0;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loading Animation */
+.loading-dots {
+    display: inline-block;
+}
+
+.loading-dots::after {
+    content: '';
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0%, 20% {
+        content: '';
+    }
+    40% {
+        content: '.';
+    }
+    60% {
+        content: '..';
+    }
+    80%, 100% {
+        content: '...';
+    }
+}
+
+/* Button Hover Effects */
+.btn-primary:hover {
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
+.btn-outline-secondary:hover {
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .message.user {
+        margin-left: 1rem;
+    }
+    
+    .message.assistant {
+        margin-right: 1rem;
+    }
+    
+    .chat-messages {
+        height: 350px;
+    }
+}
+
+/* Navbar Brand */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Styling */
+footer {
+    margin-top: auto;
+}
+
+/* Error Message Styling */
+.error-message {
+    color: var(--bs-danger);
+    background-color: rgba(var(--bs-danger-rgb), 0.1);
+    border: 1px solid rgba(var(--bs-danger-rgb), 0.2);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+/* Success Message Styling */
+.success-message {
+    color: var(--bs-success);
+    background-color: rgba(var(--bs-success-rgb), 0.1);
+    border: 1px solid rgba(var(--bs-success-rgb), 0.2);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+/* Input Focus Styling */
+#messageInput:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+/* Disabled State */
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

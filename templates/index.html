@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}KumTanesi - AI Asistan{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Chat Header -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex align-items-center">
+                        <div class="avatar me-3">
+                            <i class="fas fa-robot fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0">KumTanesi AI Asistan</h5>
+                            <small class="opacity-75">Size nasıl yardımcı olabilirim?</small>
+                        </div>
+                        <div class="ms-auto">
+                            <span class="badge bg-success">
+                                <i class="fas fa-circle me-1"></i>
+                                Çevrimiçi
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Messages -->
+                <div class="card-body p-0">
+                    <div id="chat-messages" class="chat-container">
+                        <!-- Welcome message -->
+                        <div class="message agent-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-bubble">
+                                    <p class="mb-0">Merhaba! Ben KumTanesi, sizin AI asistanınızım. 🌟</p>
+                                    <p class="mb-0">Size nasıl yardımcı olabilirim? Her türlü sorunuza yanıt verebilir, konuşabiliriz veya ihtiyacınız olan bilgileri sağlayabilirim.</p>
+                                    <p class="mb-0">Başlamak için bana bir şeyler sorun! 😊</p>
+                                </div>
+                                <small class="message-time">Şimdi</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="card-footer border-top">
+                    <form id="chat-form" class="d-flex gap-2">
+                        <div class="flex-grow-1">
+                            <textarea 
+                                id="message-input" 
+                                class="form-control resize-none" 
+                                rows="1" 
+                                placeholder="Mesajınızı yazın..."
+                                required
+                                maxlength="2000"></textarea>
+                        </div>
+                        <div class="d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary" id="send-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Enter tuşu ile gönderin
+                        </small>
+                        <small class="text-muted">
+                            <span id="char-count">0</span>/2000
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center py-4">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Yükleniyor...</span>
+                </div>
+                <p class="mb-0">KumTanesi düşünüyor...</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Auto-resize textarea
+const messageInput = document.getElementById('message-input');
+messageInput.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    
+    // Update character count
+    document.getElementById('char-count').textContent = this.value.length;
+});
+
+// Enter key to send (Shift+Enter for new line)
+messageInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        document.getElementById('chat-form').dispatchEvent(new Event('submit'));
+    }
+});
+</script>
+{% endblock %}
