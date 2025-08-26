@@ -1,8 +1,8 @@
-# KumTanesi AI Assistant
+# Aidat Yönetim Sistemi
 
 ## Overview
 
-KumTanesi is a Turkish-speaking AI chatbot built with Flask and OpenAI's GPT-5 model. The application provides a web-based chat interface where users can interact with an AI assistant that responds exclusively in Turkish. The system features a clean, responsive UI with real-time messaging capabilities and session-based conversation history management.
+Aidat Yönetim Sistemi, grup aidatlarının takip edildiği web tabanlı bir uygulamadır. Sistem üyelerin aylık aidat ödemelerini, bu aidatlarla yapılan harcamaları ve yatırımları takip eder. Flask framework'ü ve PostgreSQL veritabanı kullanılarak geliştirilmiştir.
 
 ## User Preferences
 
@@ -12,47 +12,43 @@ Preferred communication style: Simple, everyday language.
 
 ### Frontend Architecture
 - **Template Engine**: Jinja2 templates with Bootstrap 5 for responsive UI
-- **Styling**: Custom CSS with dark theme support and Bootstrap integration
-- **JavaScript**: Vanilla JavaScript with ES6 classes for chat functionality
-- **Real-time Updates**: AJAX-based messaging system with loading indicators and error handling
+- **Styling**: Custom CSS with modern design and Bootstrap integration
+- **Layout**: Dashboard with sidebar navigation system
+- **Forms**: Bootstrap form components for data entry
 
 ### Backend Architecture
-- **Web Framework**: Flask with session management using filesystem-based storage
-- **Agent System**: Modular AI agent class (`KumTanesiAgent`) that encapsulates OpenAI API interactions
-- **Session Management**: Flask-Session for maintaining conversation history across requests
-- **Request Handling**: RESTful API endpoints for chat interactions with JSON responses
+- **Web Framework**: Flask with SQLAlchemy ORM for database operations
+- **Database**: PostgreSQL with models for members, dues, expenses, and investments
+- **Authentication**: Session-based login system
+- **Request Handling**: Form-based data submission and display
 
 ### Data Models
-- **Message Structure**: Dataclass-based models for chat messages and conversation sessions
-- **Session Storage**: In-memory conversation history with configurable message limits (8 recent messages)
-- **Conversation Context**: Automatic context management for maintaining coherent AI responses
-
-### AI Integration
-- **Model**: OpenAI GPT-5 with Turkish language system prompts
-- **Context Management**: Rolling conversation window to maintain relevant chat history
-- **Response Configuration**: Tuned temperature and penalty settings for natural Turkish responses
+- **Members**: User accounts and member information
+- **Dues**: Monthly payment records from members
+- **Expenses**: Spending records using collected dues
+- **Investments**: Investment tracking from collected funds
 
 ### Security and Configuration
-- **Environment Variables**: Secure API key management and session secret configuration
+- **Environment Variables**: Database connection and session secret configuration
 - **Proxy Support**: Werkzeug ProxyFix for deployment behind reverse proxies
-- **Error Handling**: Comprehensive error handling with user-friendly Turkish error messages
+- **Authentication**: Login system for authorized access
 
 ## External Dependencies
 
-### Third-party Services
-- **OpenAI API**: GPT-5 model for AI chat responses (requires `OPENAI_API_KEY` environment variable)
+### Database
+- **PostgreSQL**: Primary database for all data storage (Neon database integration)
 
 ### Python Packages
 - **Flask**: Web framework and core application structure
+- **Flask-SQLAlchemy**: Database ORM for model management
 - **Flask-Session**: Server-side session management
-- **OpenAI**: Official OpenAI Python client library
-- **Werkzeug**: WSGI utilities and proxy handling
+- **Flask-Login**: User authentication management
+- **Werkzeug**: WSGI utilities and security functions
 
 ### Frontend Libraries
-- **Bootstrap 5**: UI framework with Replit dark theme integration
+- **Bootstrap 5**: UI framework for responsive design
 - **Font Awesome**: Icon library for UI elements
-- **Replit Bootstrap Theme**: Custom dark theme CSS from Replit CDN
 
 ### Development Dependencies
 - **Python Logging**: Built-in logging for debugging and monitoring
-- **Standard Library**: dataclasses, typing, datetime, and os modules
+- **Standard Library**: datetime, os modules for basic functionality

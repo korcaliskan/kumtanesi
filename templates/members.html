@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Üyeler - Aidat Yönetim Sistemi{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 sidebar">
+            <div class="p-3">
+                <h5 class="text-white mb-4">
+                    <i class="fas fa-money-bill-wave me-2"></i>
+                    Aidat Sistemi
+                </h5>
+                
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{{ url_for('dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>
+                        Dashboard
+                    </a>
+                    <a class="nav-link active" href="{{ url_for('members') }}">
+                        <i class="fas fa-users me-2"></i>
+                        ÜYELER
+                    </a>
+                    <a class="nav-link" href="#" onclick="alert('Yakında gelecek!')">
+                        <i class="fas fa-money-check-alt me-2"></i>
+                        Aidatlar
+                    </a>
+                    <a class="nav-link" href="#" onclick="alert('Yakında gelecek!')">
+                        <i class="fas fa-receipt me-2"></i>
+                        Giderler
+                    </a>
+                    <a class="nav-link" href="#" onclick="alert('Yakında gelecek!')">
+                        <i class="fas fa-chart-line me-2"></i>
+                        Yatırımlar
+                    </a>
+                </nav>
+
+                <hr class="my-4">
+                
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>
+                        Çıkış
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 main-content">
+            <div class="p-4">
+                <!-- Header -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1>Üyeler</h1>
+                    <a href="{{ url_for('add_member') }}" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Yeni Üye Ekle
+                    </a>
+                </div>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'danger' else 'success' }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Members Table -->
+                <div class="card">
+                    <div class="card-body">
+                        {% if members %}
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Ad Soyad</th>
+                                            <th>Telefon</th>
+                                            <th>E-posta</th>
+                                            <th>Katılım Tarihi</th>
+                                            <th>Toplam Ödenen</th>
+                                            <th>İşlemler</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for member in members %}
+                                            <tr>
+                                                <td>{{ member.id }}</td>
+                                                <td>
+                                                    <strong>{{ member.full_name }}</strong>
+                                                    {% if not member.is_active %}
+                                                        <span class="badge bg-secondary ms-2">Pasif</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ member.phone or '-' }}</td>
+                                                <td>{{ member.email or '-' }}</td>
+                                                <td>{{ member.join_date.strftime('%d.%m.%Y') }}</td>
+                                                <td>{{ "%.2f"|format(member.total_paid) }}₺</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary" onclick="alert('Detay sayfası yakında gelecek!')">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-secondary" onclick="alert('Düzenleme yakında gelecek!')">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="text-center py-5">
+                                <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                                <h5 class="text-muted">Henüz üye kaydı yok</h5>
+                                <p class="text-muted">İlk üyeyi eklemek için yukarıdaki butonu kullanın.</p>
+                                <a href="{{ url_for('add_member') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus me-2"></i>İlk Üyeyi Ekle
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
